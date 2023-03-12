@@ -1,7 +1,7 @@
-const { default: puppeteer } = require('puppeteer');
+import { default as puppeteer } from 'puppeteer';
 
 const anime = async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 1080 });
   await page.goto('https://jkanime.net/');
@@ -12,11 +12,11 @@ const anime = async () => {
     let animes = [];
     for (const item of items) {
       animes.push({
-        Nombre: item.querySelector('h5').innerHTML,
-        Imagen: item.querySelector('img').getAttribute('src'),
+        Nombre: item.querySelector('h5')?.innerHTML,
+        Imagen: item.querySelector('img')?.getAttribute('src'),
         Episodio: item
           .querySelector('h6')
-          .innerHTML.split(' ')
+          ?.innerHTML.split(' ')
           .filter((data) => {
             if (data != '') return data;
           })
